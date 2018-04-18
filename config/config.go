@@ -11,9 +11,14 @@ import (
 )
 
 var (
-	once sync.Once
 	err  error
-	pkg  config
+	once sync.Once
+	pkg  = config{
+		Registry: defaultRegistry,
+		Token:    defaultToken,
+	}
+	defaultRegistry = "https://pkg.4396.io"
+	defaultToken    = "0443dbd565c01d39cb97a4e452d580986251d6c5"
 )
 
 type config struct {
