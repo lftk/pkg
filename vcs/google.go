@@ -6,6 +6,6 @@ func init() {
 		"google.golang.org/grpc":      "github.com/grpc/grpc-go",
 		"google.golang.org/genproto":  "github.com/google/go-genproto",
 	} {
-		Proxy(k, v, v)
+		Proxy(k, v, k)
 	}
 }
