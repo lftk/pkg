@@ -79,10 +79,10 @@ func Get(pkg string) (repo, base string, ok bool) {
 	return
 }
 
-func Delete(pkg string) {
+func Delete(pkg string) (err error) {
 	if _, ok := mirrors[pkg]; ok {
 		delete(mirrors, pkg)
-		saveMirrors()
+		err = saveMirrors()
 	}
 	return
 }

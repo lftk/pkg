@@ -9,6 +9,7 @@ import (
 	"path"
 	"sync"
 
+	"github.com/4396/pkg/conf"
 	"github.com/4396/pkg/store"
 	"github.com/4396/pkg/vcs"
 	"github.com/julienschmidt/httprouter"
@@ -16,7 +17,7 @@ import (
 
 var (
 	addr  = flag.String("addr", ":7543", "server address")
-	token = flag.String("token", "0443dbd565c01d39cb97a4e452d580986251d6c5", "access token")
+	token = flag.String("token", conf.DefaultToken, "access token")
 )
 
 func main() {

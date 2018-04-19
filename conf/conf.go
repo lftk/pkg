@@ -1,4 +1,4 @@
-package config
+package conf
 
 import (
 	"io/ioutil"
@@ -13,12 +13,12 @@ import (
 var (
 	err  error
 	once sync.Once
-	pkg  = config{
-		Registry: defaultRegistry,
-		Token:    defaultToken,
+	cfg  = config{
+		Registry: DefaultRegistry,
+		Token:    DefaultToken,
 	}
-	defaultRegistry = "https://pkg.4396.io"
-	defaultToken    = "0443dbd565c01d39cb97a4e452d580986251d6c5"
+	DefaultRegistry = "https://pkg.4396.io"
+	DefaultToken    = "0443dbd565c01d39cb97a4e452d580986251d6c5"
 )
 
 type config struct {
@@ -41,13 +41,13 @@ func loadConfig() error {
 			return
 		}
 
-		err = yaml.Unmarshal(b, &pkg)
+		err = yaml.Unmarshal(b, &cfg)
 	})
 	return err
 }
 
 func saveConfig() (err error) {
-	b, err := yaml.Marshal(&pkg)
+	b, err := yaml.Marshal(&cfg)
 	if err != nil {
 		return
 	}
@@ -64,12 +64,12 @@ func Registry(url string) (oldURL string, err error) {
 		return
 	}
 
-	oldURL = pkg.Registry
-	if url == "" || url == pkg.Registry {
+	oldURL = cfg.Registry
+	if url == "" || url == cfg.Registry {
 		return
 	}
 
-	pkg.Registry = url
+	cfg.Registry = url
 	err = saveConfig()
 	return
 }
@@ -80,12 +80,12 @@ func Token(token string) (oldToken string, err error) {
 		return
 	}
 
-	oldToken = pkg.Token
-	if token == "" || token == pkg.Token {
+	oldToken = cfg.Token
+	if token == "" || token == cfg.Token {
 		return
 	}
 
-	pkg.Token = token
+	cfg.Token = token
 	err = saveConfig()
 	return
 }

@@ -4,9 +4,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/4396/pkg/cmd/pkg/config"
-	"github.com/4396/pkg/cmd/pkg/get"
-	"github.com/4396/pkg/cmd/pkg/mirror"
+	"github.com/4396/pkg/cmd"
 	"github.com/urfave/cli"
 )
 
@@ -16,9 +14,9 @@ func main() {
 	app.Usage = "used to download packages and dependencies"
 	app.Version = "v0.1.0"
 	app.Commands = []cli.Command{
-		get.Command,
-		mirror.Command,
-		config.Command,
+		cmd.Get,
+		cmd.Mirror,
+		cmd.Config,
 	}
 	err := app.Run(os.Args)
 	if err != nil {
