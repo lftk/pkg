@@ -49,12 +49,13 @@ func walk(dir string) (repos map[string]archives, err error) {
 		}
 
 		base := filepath.Base(rel)
-		i := strings.Index(base, ".")
-		if i == -1 {
+		ss := strings.Split(base, ".")
+		if len(ss) != 2 {
 			return nil
 		}
 
-		sha, ext := base[:i], base[i:]
+		sha := ss[0]
+		ext := "." + ss[1]
 		repo := filepath.Dir(rel)
 		archives, ok := repos[repo]
 		if !ok {
