@@ -203,11 +203,11 @@ func listImports(ctx build.Context, dones map[string]bool, path, root, src strin
 	return
 }
 
-func Imports(path, src string, test bool) (imports []string, err error) {
+func Imports(path, root, src string, test bool) (imports []string, err error) {
 	ctx := build.Default
 	gopath := os.Getenv("GOPATH")
 	ctx.GOPATH = src + string(os.PathListSeparator) + gopath
 	dones := make(map[string]bool)
-	imports, err = listImports(ctx, dones, path, path, src, test)
+	imports, err = listImports(ctx, dones, path, root, src, test)
 	return
 }

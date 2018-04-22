@@ -156,7 +156,7 @@ func fetchPackage(dir, path string, dones map[string]string, update, verbose boo
 		return
 	}
 
-	imports, err := dep.Imports(pkg, dir, false)
+	imports, err := dep.Imports(pkg, base, dir, false)
 	if err != nil {
 		err = warpError("dep.Imports", err)
 		return
