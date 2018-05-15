@@ -179,17 +179,17 @@ func (l logger) Log(format string, v ...interface{}) {
 	}
 }
 
-func unzip(src, dst string) error {
+func unzip(src, dst string) (err error) {
 	r, err := zip.OpenReader(src)
 	if err != nil {
-		return err
+		return
 	}
 	defer r.Close()
 
-	for _, f := range r.File {
+	uz := func(f *zip.File) (err error) {
 		rc, err := f.Open()
 		if err != nil {
-			return err
+			return
 		}
 		defer rc.Close()
 
@@ -198,21 +198,25 @@ func unzip(src, dst string) error {
 		path := filepath.Join(dst, ss[len(ss)-1])
 		if f.FileInfo().IsDir() {
 			os.MkdirAll(path, f.Mode())
-			continue
+			return
 		}
 
 		w, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, f.Mode())
 		if err != nil {
-			return err
+			return
 		}
 		defer w.Close()
 
 		_, err = io.Copy(w, rc)
-		if err != nil {
-			return err
+		return
+	}
+
+	for _, f := range r.File {
+		if err = uz(f); err != nil {
+			return
 		}
 	}
-	return nil
+	return
 }
 
 func httpGet(path string) (resp *http.Response, err error) {
