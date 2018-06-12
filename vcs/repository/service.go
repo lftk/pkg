@@ -29,12 +29,16 @@ var (
 	services []Service
 )
 
-func Register(service Service) {
-	services = append(services, service)
+func Register(service Service, front bool) {
+	if front {
+		services = append([]Service{service}, services...)
+	} else {
+		services = append(services, service)
+	}
 }
 
-func Registerf(match MatchFunc, repository RepositoryFunc) {
-	services = append(services, &service{match, repository})
+func Registerf(match MatchFunc, repository RepositoryFunc, front bool) {
+	Register(Make(match, repository), front)
 }
 
 func Select(pkg string) (service Service, ok bool) {

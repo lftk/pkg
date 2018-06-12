@@ -46,6 +46,6 @@ func init() {
 		}
 		return false
 	}
-	parser.Registerf(match, proxyParse)
-	repository.Registerf(match, proxyRepository)
+	parser.Registerf(match, proxyParse, true)
+	repository.Registerf(match, proxyRepository, true)
 }

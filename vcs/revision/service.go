@@ -29,12 +29,16 @@ var (
 	services []Service
 )
 
-func Register(service Service) {
-	services = append(services, service)
+func Register(service Service, front bool) {
+	if front {
+		services = append([]Service{service}, services...)
+	} else {
+		services = append(services, service)
+	}
 }
 
-func Registerf(match MatchFunc, revision RevisionFunc) {
-	services = append(services, &service{match, revision})
+func Registerf(match MatchFunc, revision RevisionFunc, front bool) {
+	Register(Make(match, revision), front)
 }
 
 func Select(repo string) (service Service, ok bool) {

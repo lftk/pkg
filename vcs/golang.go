@@ -27,6 +27,6 @@ func golangRepository(pkg string) (repo, base string, err error) {
 
 func init() {
 	match := prefixMatchFunc("golang.org")
-	parser.Registerf(match, golangParse)
-	repository.Registerf(match, golangRepository)
+	parser.Registerf(match, golangParse, false)
+	repository.Registerf(match, golangRepository, false)
 }

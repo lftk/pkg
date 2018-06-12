@@ -29,12 +29,16 @@ var (
 	services []Service
 )
 
-func Register(service Service) {
-	services = append(services, service)
+func Register(service Service, front bool) {
+	if front {
+		services = append([]Service{service}, services...)
+	} else {
+		services = append(services, service)
+	}
 }
 
-func Registerf(match MatchFunc, parse ParseFunc) {
-	services = append(services, &service{match, parse})
+func Registerf(match MatchFunc, parse ParseFunc, front bool) {
+	Register(Make(match, parse), front)
 }
 
 func Select(path string) (service Service, ok bool) {

@@ -27,6 +27,6 @@ func uberRepository(pkg string) (repo, base string, err error) {
 
 func init() {
 	match := prefixMatchFunc("go.uber.org")
-	repository.Registerf(match, uberRepository)
-	parser.Registerf(match, uberParse)
+	repository.Registerf(match, uberRepository, false)
+	parser.Registerf(match, uberParse, false)
 }

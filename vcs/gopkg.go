@@ -65,6 +65,6 @@ func gopkgRepository(pkg string) (repo, base string, err error) {
 
 func init() {
 	match := prefixMatchFunc("gopkg.in")
-	repository.Registerf(match, gopkgRepository)
-	parser.Registerf(match, gopkgParse)
+	repository.Registerf(match, gopkgRepository, false)
+	parser.Registerf(match, gopkgParse, false)
 }

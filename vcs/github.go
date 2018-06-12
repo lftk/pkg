@@ -103,8 +103,8 @@ func githubRevision(repo, ver string) (sha string, err error) {
 
 func init() {
 	match := prefixMatchFunc("github.com")
-	archive.Registerf(match, githubArchive)
-	parser.Registerf(match, githubParse)
-	repository.Registerf(match, githubRepository)
-	revision.Registerf(match, githubRevision)
+	archive.Registerf(match, githubArchive, false)
+	parser.Registerf(match, githubParse, false)
+	repository.Registerf(match, githubRepository, false)
+	revision.Registerf(match, githubRevision, false)
 }
